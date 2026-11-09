@@ -1,2 +1,2 @@
 # programming-practice
-make game
+쿠키런
