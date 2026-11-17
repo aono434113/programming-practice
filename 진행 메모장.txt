@@ -1,0 +1,22 @@
+name: player, obstacle, ground, jelly, item
+player는 오른쪽으로 이동, 배경은 player따라감. obstacle & jelly는 배경에 가만히 설치.
+1단 점프: 바닥 뚫려있음, 박스 1개
+2단 점프: 박스 2개
+부딪힌 물체가 ground이면 점프횟수 0으로 초기화, obstacle으면 게임 오버.
+
+#include <stdio.h> 
+(구조체)물체타입/ 자료형 선언 => obstacle, ground, jelly, item
+(구조체)player / (점프횟수: count), (점수: score)
+배경 설정?
+main 함수 정의
+	맵 초기화
+	맵에 구멍, obstacle, jelly 설치
+
+	부딪히거나 구멍에 빠지지 않으면 게임 계속 진행
+	게임 오버 되면 결과 출력 (젤리 몇 개 얻었는지 알려줌)
+
+	//오른쪽으로 달리는 player 설정
+	//점프 설정
+	//부딪힘: 장애물= 게임오버, 젤리= 10점, 아이템=50점
+	//게임오버인지 확인
+	
