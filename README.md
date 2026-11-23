@@ -1,2 +1,2 @@
 # programming-practice
-쿠키런
+젤리 모으기 게임
