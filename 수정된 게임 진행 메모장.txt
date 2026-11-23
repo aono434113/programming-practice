@@ -1,0 +1,119 @@
+11/17
+name: player, obstacle, ground, jelly, item
+player는 오른쪽으로 이동, 배경은 player따라감. obstacle & jelly는 배경에 가만히 설치.
+1단 점프: 바닥 뚫려있음, 박스 1개
+2단 점프: 박스 2개
+부딪힌 물체가 ground이면 점프횟수 0으로 초기화, obstacle으면 게임 오버.
+
+#include <stdio.h>
+(구조체)물체타입/ 자료형 선언 => obstacle, ground, jelly, item
+(구조체)player / (점프횟수: count), (점수: score)
+배경 설정?
+main 함수 정의
+	맵 초기화
+	맵에 구멍, obstacle, jelly 설치
+
+	부딪히거나 구멍에 빠지지 않으면 게임 계속 진행
+	게임 오버 되면 결과 출력 (젤리 몇 개 얻었는지 알려줌)
+
+	//오른쪽으로 달리는 player 설정
+	//점프 설정
+	//부딪힘: 장애물= 게임오버, 젤리= 10점, 아이템=50점
+	//게임오버인지 확인
+
+11/23
+맵
+빈 공간 = 0 이 있어야 함. (맵의 화면을 0으로 채울거니까 0이 빈칸이라는 것을 알려주기 위해)
+게임의 화면이 끝나는 지점을 설정해야 함 (장애물에 부딪히지 않을 경우, 완주함으로써 게임을 끝내기 위해) => 화면의 길이를 정해두자.
+플레이 화면의 세로와 가로 길이가 있어야 하나...?
+맵에 장애물과 젤리가 랜덤으로 설치되어 있어야 함.
+수정사항
+제목: 젤리 모으기
+게임오버: 장애물에 부딪힘 or 젤리 50개를 모두 모으고 할머니댁 도착 or 장애물을 모두 피했지만 젤리를 몇 개 놓치고 할머니 댁에 도착
+젤리 50개를 모두 모으면 저절로 할머니 집에 도착함
+아이템 삭제
+장애물은 1개만(쌓여져 있지 않음), 점프도 1단만
+고양이(cat)은 아이(player)를 따라오는 것만
+_kbhit, _getch, system("cls") 삭제
+
+틀 만들기 -> 설정해야 함. (#include.... #defind... (보이는 맵과 전체 맵의)가로 길이, 높이)
+물체타입(열거형), 플레이어(자기 참조 구조체) 구조체 자료형 선언
+동적메모리 할당, 반환 (malloc, free)
+player 위치 초기값, cat 위치 초기값 설정
+연결 리스트(player 뒤에 cat이 따라옴)
+입력 받는 것: 달리는 것은 1 누르고 Enter 누르기 / 점프는 2 누르고 Enter 누르기
+게임이 오버될 때까지 계속 반복되도록 함(while 문)
+게임 끝나면 문구 출력, 그와 동시에 모은 젤리 개수 출력
+player가 젤리 주으면 젤리가 사라져야 함
+화면에 표시되는 것:
+공백 "       "
+땅 ======
+장애물 []
+젤리 o
+플레이어 P
+고양이 c
+
+
+
+//설정
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#define hight 7
+#define view_width 25
+#define map_width 250
+#define total_jelly 50
+
+//구조체
+typedef enum {
+	empty = 0,
+	ground,
+	obstacle,
+	jelly
+} ObjectType;
+
+typedef struct CharacterNode {
+	int x;
+	int y;
+	struct CharacterNode* link;
+} Character;
+
+typedef struct {
+	int jellycount;
+	int gameover;
+} Game;
+
+//main 함수
+int main() {
+
+//초기값
+Game game = {0,0};
+
+player->x =2;
+player->y =height -2;
+player->linkt =cat;
+
+cat->x =1;
+cat->y =height -2;
+cat->link =NULL;
+
+//게임 반복
+
+//엔딩 멘트 출력
+printf("\n=====================================\n");
+if(game.gameover ==1) {
+	printf("          [GAME OVER]          \n");
+	printf(" 길에 놓인 장애물에 부딪혀 넘어졌습니다. \n");
+	printf(" 최종 모은 젤리: %d개 \n", game.jellycount);
+} else if(game.jellycount == total_jelly) {
+	printf("          [STAGE CLEAR]          \n");
+	printf(" 할머니가 흘리신 젤리 50개를 하나도 빠짐없이 주워\n 고양이와 함께 할머니 댁에 무사히 도착했습니다.\n");
+	printf(" 최종 모은 젤리: %d개 \n", game.jellycount);
+} else {
+	printf("          [STAGA CLEAR]          \n");
+	PRINTF(" 장애물을 모두 피해 할머니 댁에 도착하셨습니다.\n 아쉽게도 젤리 %d개를 놓쳤지만 할머니께서 반겨주십니다. \n", total_jelly - game.jellycount);
+	printf(" 최종 모은 젤리: %d개 \n", game.jellycount);
+}
+printf("======================================\n");
+
+
